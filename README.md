@@ -2,6 +2,8 @@
 
 This repository demonstrates a simplified example of training and running inference on a toy model using the Retrogressive Thaw Slumps (RTS) dataset. It is adapted from the official [PyTorch Vision Tutorial](https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html).
 
+The copyright for the tutorial content belongs to PyTorch. © Copyright 2024, PyTorch.
+
 ## Requirements
 
 To set up the environment, I recommend using Conda. You can create the environment using the provided `requirements_conda.txt` file:
