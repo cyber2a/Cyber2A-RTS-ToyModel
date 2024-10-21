@@ -6,7 +6,7 @@ from collections import defaultdict, deque
 
 import torch
 import torch.distributed as dist
-
+import mlflow
 
 class SmoothedValue:
     """Track a series of values and provide access to smoothed values over a
@@ -125,6 +125,9 @@ class MetricLogger:
                 v = v.item()
             assert isinstance(v, (float, int))
             self.meters[k].update(v)
+    def as_mlflow_metrics(self):
+        return {k: v.avg if isinstance(v, SmoothedValue) else v for k, v in self.meters.items()}
+
 
     def __getattr__(self, attr):
         if attr in self.meters:
@@ -211,6 +214,8 @@ class MetricLogger:
                             data=str(data_time),
                         )
                     )
+                mlflow.log_metrics(step=i,metrics=self.as_mlflow_metrics())
+
             i += 1
             end = time.time()
         total_time = time.time() - start_time
